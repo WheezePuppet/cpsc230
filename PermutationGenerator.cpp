@@ -26,6 +26,7 @@ string *generatePermutations(string word) {
         for (int j=0; j<fact(word.length()-1); j++) {
             permutations[cnt++] = word[i] + shorterPerms[j];
         }
+        delete [] shorterPerms;
     }
     return permutations;
 }
