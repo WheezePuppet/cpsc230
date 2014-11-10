@@ -1,6 +1,7 @@
 
 #include<iostream>
 #include<string>
+#include"utils.h"
 using namespace std;
 
 int fact(int n) {
@@ -8,13 +9,11 @@ int fact(int n) {
     return n * fact(n-1);
 }   
 
-string *generatePermutations(string word) {
+void generatePermutations(string word, string permutations[]) {
         
-    string *permutations = new string[fact(word.length())];
-
     if (word.length() == 1) {
         permutations[0] = word;
-        return permutations; 
+        return;
     }       
         
     int cnt=0;
@@ -22,26 +21,20 @@ string *generatePermutations(string word) {
         string shorterword = 
             word.substr(0,i) +
             word.substr(i+1,word.length()-i-1);
-        string *shorterPerms = generatePermutations(shorterword);
+        string shorterPerms[fact(word.length()-1)];
+        generatePermutations(shorterword, shorterPerms);
         for (int j=0; j<fact(word.length()-1); j++) {
             permutations[cnt++] = word[i] + shorterPerms[j];
         }
-        delete [] shorterPerms;
     }
-    return permutations;
 }
 
 
-int main(int argc, char *argv[]) {
+void printPerms(string word, ostream & os) {
 
-    if (argc < 2) {
-        cout << "Usage: PermutationGenerator word." << endl;
-        return 1;
-    }
-
-    string word = argv[1];
-    string *perms = generatePermutations(word);
+    string perms[fact(word.length())];
+    generatePermutations(word, perms);
     for (int i=0; i<fact(word.length()); i++) {
-        cout << i << ": " << perms[i] << endl;
+        os << i << ": " << perms[i] << endl;
     }
 }
