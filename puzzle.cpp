@@ -2,6 +2,7 @@
 #include"puzzle.h"
 #include"utils.h"
 #include<algorithm>
+#include<string>
 
 using namespace std;
 
@@ -18,12 +19,28 @@ string tolower(const string & str) {
     return copy;
 }
 
+string unscramble_word(const string & word) {
+    string unscrambledWord = word;
+    unscrambledWord = tolower(unscrambledWord);
+    int numPerms = fact(unscrambledWord.length());
+    string perms[numPerms];
+    generatePermutations(unscrambledWord,perms);
+    for (int i=0; i<numPerms; i++) {
+        if (dict.contains(perms[i])) {
+            return perms[i];
+        }
+    }
+    throw "" + unscrambledWord + " not unscrambleable!";
+}
+
 /////////////////////////////////////////////////////////////////////////////
 
 JumblePuzzle::JumblePuzzle(istream & is) {
     for (int i=0; i<CLUES_PER_PUZZLE; i++) {
         clues[i] = new JumbleClue(is);
     }
+    getline(is, finalQuestion);
+    getline(is, finalAnswer);
 }
 
 JumblePuzzle::~JumblePuzzle() {
@@ -44,20 +61,22 @@ std::string JumblePuzzle::getContributingLettersFrom(int i) const {
     return clues[i]->getContributingLetters();
 }
 
+std::string JumblePuzzle::getFinalSolution() const {
+    string finalWord;
+    for (int i=0; i<CLUES_PER_PUZZLE; i++) {
+        finalWord += clues[i]->getContributingLetters();
+    }
+    finalWord = unscramble_word(finalWord);
+    string solvedAnswer = finalAnswer;
+    solvedAnswer.replace(finalAnswer.find('_'), finalWord.length(), finalWord);
+    return finalQuestion + "\n" + solvedAnswer;
+}
+
+
 /////////////////////////////////////////////////////////////////////////////
 
 string JumbleClue::unscramble() const {
-    string unscrambledWord = scrambledWord;
-    unscrambledWord = tolower(unscrambledWord);
-    int numPerms = fact(unscrambledWord.length());
-    string perms[numPerms];
-    generatePermutations(unscrambledWord,perms);
-    for (int i=0; i<numPerms; i++) {
-        if (dict.contains(perms[i])) {
-            return perms[i];
-        }
-    }
-    throw "" + unscrambledWord + " not unscrambleable!";
+    return unscramble_word(scrambledWord);
 }
 
 JumbleClue::JumbleClue(istream & is) {

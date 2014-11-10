@@ -7,6 +7,8 @@
 
 extern Dictionary dict;
 
+std::string unscramble_word(const std::string & word);
+
 class JumbleClue {
     friend class JumblePuzzle;
     public:
@@ -26,8 +28,11 @@ class JumblePuzzle {
         std::string getScrambledWord(int i) const;
         std::string getUnscrambledWord(int i) const;
         std::string getContributingLettersFrom(int i) const;
+        std::string getFinalSolution() const;
     private:
         JumbleClue *clues[CLUES_PER_PUZZLE];
+        std::string finalQuestion;
+        std::string finalAnswer;
 };
 
 #endif
