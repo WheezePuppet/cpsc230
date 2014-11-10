@@ -2,22 +2,27 @@
 #include"Dictionary.h"
 #include<iostream>
 #include<fstream>
+#include<cstdlib>
 
 using namespace std;
 
 const char * Dictionary::DICT_FILE = "/usr/share/dict/words";
+
+bool print = false;
 
 void Word::insert(std::string word) {
     if (word < this->word) {
         if (left == NULL) {
             left = new Word(word);
         } else {
+if (print) cout << "L";
             left->insert(word);
         }
     } else {
         if (right == NULL) {
             right = new Word(word);
         } else {
+if (print) cout << "R";
             right->insert(word);
         }
     }
@@ -66,11 +71,27 @@ bool Dictionary::contains(std::string word) const {
 }
 
 Dictionary::Dictionary() {
+
     root = NULL;
     ifstream dictFile(DICT_FILE);
+
+    // Read words into array.
+    string words[NUM_WORDS];
     for (int i=0; i<NUM_WORDS; i++) {
-        string word;
-        getline(dictFile,word);
+        getline(dictFile,words[i]);
+    }
+
+    // Shuffle array.
+    for (int i=0; i<NUM_WORDS; i++) {
+        int r = rand() % NUM_WORDS;
+        string tmp = words[i];
+        words[i] = words[r];
+        words[r] = tmp;
+    }
+    
+    // Insert shuffled words into BST.
+    for (int i=0; i<NUM_WORDS; i++) {
+        insert(words[i]);
     }
 }
 
