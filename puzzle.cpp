@@ -25,17 +25,21 @@ string JumblePuzzle::getScrambledWord(int i) const {
 }
 
 string JumblePuzzle::getUnscrambledWord(int i) const {
-    string scrambledWord = clues[i]->scrambledWord;
+    return clues[i]->unscramble(dict);
+}
+
+string JumbleClue::unscramble(const Dictionary & dict) const {
+    string unscrambledWord = scrambledWord;
     for (int i=0; i<scrambledWord.length(); i++) {
-        scrambledWord[i] = tolower(scrambledWord[i]);
+        unscrambledWord[i] = tolower(unscrambledWord[i]);
     }
-    int numPerms = fact(scrambledWord.length());
+    int numPerms = fact(unscrambledWord.length());
     string perms[numPerms];
-    generatePermutations(scrambledWord,perms);
+    generatePermutations(unscrambledWord,perms);
     for (int i=0; i<numPerms; i++) {
         if (dict.contains(perms[i])) {
             return perms[i];
         }
     }
-    throw "" + scrambledWord + " not unscrambleable!";
+    throw "" + unscrambledWord + " not unscrambleable!";
 }

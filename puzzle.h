@@ -9,6 +9,7 @@ class JumbleClue {
     friend class JumblePuzzle;
     public:
         JumbleClue(std::istream & is);
+        string unscramble(const Dictionary & dict) const;
     private:
         string scrambledWord;
         string blanksAndOhs;
