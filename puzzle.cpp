@@ -2,6 +2,19 @@
 #include"puzzle.h"
 #include"utils.h"
 
+using namespace std;
+
+
+Dictionary dict;
+
+string tolower(const string & str) {
+    string copy = str;
+    for (int i=0; i<copy.length(); i++) {
+        copy[i] = tolower(copy[i]);
+    }
+    return copy;
+}
+
 JumbleClue::JumbleClue(istream & is) {
     is >> scrambledWord;
     is >> blanksAndOhs;
@@ -25,14 +38,12 @@ string JumblePuzzle::getScrambledWord(int i) const {
 }
 
 string JumblePuzzle::getUnscrambledWord(int i) const {
-    return clues[i]->unscramble(dict);
+    return clues[i]->unscramble();
 }
 
-string JumbleClue::unscramble(const Dictionary & dict) const {
+string JumbleClue::unscramble() const {
     string unscrambledWord = scrambledWord;
-    for (int i=0; i<scrambledWord.length(); i++) {
-        unscrambledWord[i] = tolower(unscrambledWord[i]);
-    }
+    unscrambledWord = tolower(unscrambledWord);
     int numPerms = fact(unscrambledWord.length());
     string perms[numPerms];
     generatePermutations(unscrambledWord,perms);

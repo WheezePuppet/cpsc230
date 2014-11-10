@@ -5,11 +5,14 @@
 #include<iostream>
 #include"Dictionary.h"
 
+extern Dictionary dict;
+
 class JumbleClue {
     friend class JumblePuzzle;
     public:
         JumbleClue(std::istream & is);
-        string unscramble(const Dictionary & dict) const;
+        string unscramble() const;
+        string getContributingLetters() const;
     private:
         string scrambledWord;
         string blanksAndOhs;
@@ -23,7 +26,6 @@ class JumblePuzzle {
         std::string getScrambledWord(int i) const;
         std::string getUnscrambledWord(int i) const;
     private:
-        Dictionary dict;
         JumbleClue *clues[CLUES_PER_PUZZLE];
 };
 
