@@ -25,6 +25,7 @@ class JumblePuzzle {
         ~JumblePuzzle();
         std::string getScrambledWord(int i) const;
         std::string getUnscrambledWord(int i) const;
+        std::string getContributingLettersFrom(int i) const;
     private:
         JumbleClue *clues[CLUES_PER_PUZZLE];
 };

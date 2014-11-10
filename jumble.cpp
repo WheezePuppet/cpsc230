@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
         ifstream jumbleFile(argv[1], ios_base::in);
         JumblePuzzle puzzle(jumbleFile);
         for (int i=0; i<puzzle.CLUES_PER_PUZZLE; i++) {
-            cout << puzzle.getUnscrambledWord(i) << endl;
+            cout << puzzle.getContributingLettersFrom(i) << endl;
         }
     } catch (const string & msg) {
         cout << "Caught: " << msg << endl;

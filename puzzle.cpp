@@ -1,11 +1,14 @@
 
 #include"puzzle.h"
 #include"utils.h"
+#include<algorithm>
 
 using namespace std;
 
 
 Dictionary dict;
+
+/////////////////////////////////////////////////////////////////////////////
 
 string tolower(const string & str) {
     string copy = str;
@@ -15,11 +18,7 @@ string tolower(const string & str) {
     return copy;
 }
 
-JumbleClue::JumbleClue(istream & is) {
-    is >> scrambledWord;
-    is >> blanksAndOhs;
-    is.get();
-}
+/////////////////////////////////////////////////////////////////////////////
 
 JumblePuzzle::JumblePuzzle(istream & is) {
     for (int i=0; i<CLUES_PER_PUZZLE; i++) {
@@ -41,6 +40,12 @@ string JumblePuzzle::getUnscrambledWord(int i) const {
     return clues[i]->unscramble();
 }
 
+std::string JumblePuzzle::getContributingLettersFrom(int i) const {
+    return clues[i]->getContributingLetters();
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
 string JumbleClue::unscramble() const {
     string unscrambledWord = scrambledWord;
     unscrambledWord = tolower(unscrambledWord);
@@ -53,4 +58,22 @@ string JumbleClue::unscramble() const {
         }
     }
     throw "" + unscrambledWord + " not unscrambleable!";
+}
+
+JumbleClue::JumbleClue(istream & is) {
+    is >> scrambledWord;
+    is >> blanksAndOhs;
+    is.get();
+}
+
+string JumbleClue::getContributingLetters() const {
+    string answer = unscramble();
+    int numBlanks = count(blanksAndOhs.begin(), blanksAndOhs.end(), 'O');
+    string contributingLetters;
+    int contribLetterIndex = blanksAndOhs.find('O');
+    while (contribLetterIndex != -1) {
+        contributingLetters.append(answer.substr(contribLetterIndex,1));
+        contribLetterIndex = blanksAndOhs.find('O',contribLetterIndex+1);
+    }
+    return contributingLetters;
 }
