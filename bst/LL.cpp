@@ -11,7 +11,7 @@ std::string LLNode::getValue(std::string key) const {
         return this->value;
     }
     if (next == NULL) {
-        throw "no such key " + key + "!";
+        throw exception();
     }
     return next->getValue(key);
 }
@@ -37,7 +37,7 @@ std::string LL::getValue(std::string key) const {
         }
         curr = curr->next;
     }
-    throw "no such key " + key + "!";
+    throw exception();
 }
 
 LL::LL() {

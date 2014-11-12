@@ -27,13 +27,13 @@ std::string BSTNode::getValue(std::string key) const {
     }
     if (key < this->key) {
         if (left == NULL) {
-            throw "no such key " + key + "!";
+            throw exception();
         } else {
             return left->getValue(key);
         }
     } else {
         if (right == NULL) {
-            throw "no such key " + key + "!";
+            throw exception();
         } else {
             return right->getValue(key);
         }
@@ -60,7 +60,7 @@ std::string BST::getValue(std::string key) const {
     if (root != NULL) {
         return root->getValue(key);
     }
-    throw "no such key " + key + "!";
+    throw exception();
 }
 
 BST::BST() {
