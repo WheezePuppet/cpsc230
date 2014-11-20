@@ -2,6 +2,9 @@
 run: testDict
 	./testDict
 
+clean:
+	rm *.o testDict 
+
 testDict: main.o BST.o LL.o HT.o
 	g++ -o testDict main.o BST.o LL.o HT.o
 
