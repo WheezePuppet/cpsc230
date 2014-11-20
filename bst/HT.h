@@ -17,7 +17,7 @@ class KVPair {
 
 class HT {
     public:
-        const static int HT_SIZE = 100000000;
+        const static int HT_SIZE = 10000001;
         void insert(string key, string value);
         string getValue(string key) const;
         HT();

@@ -4,7 +4,7 @@
 
 using namespace std;
 
-void BSTNode::insert(std::string key, std::string value) {
+void BSTNode::insert(string key, string value) {
     if (key < this->key) {
         if (left == NULL) {
             left = new BSTNode(key, value);
@@ -20,8 +20,8 @@ void BSTNode::insert(std::string key, std::string value) {
     }
 }
 
-
-std::string BSTNode::getValue(std::string key) const {
+/* Correct version! */
+string BSTNode::getValue(string key) const {
     if (key == this->key) {
         return this->value;
     }
@@ -40,14 +40,52 @@ std::string BSTNode::getValue(std::string key) const {
     }
 }
 
-BSTNode::BSTNode(std::string key, std::string value) {
+/* BAD version #1 from quiz #6: doesn't (usually) find 
+ * the key/value pair it's looking for. 
+string BSTNode::getValue(string key) const {
+    if (key == this->key) {
+        return this->value;
+    }
+    if (left != NULL) {
+        return left->getValue(key);
+    }
+    if (right != NULL) {
+        return right->getValue(key);
+    }
+    throw exception();
+}
+*/
+
+/* BAD version #2 from quiz #6: gives correct answer
+ * always, but inconceivably slow. 
+string BSTNode::getValue(string key) const {
+    if (key == this->key) {
+        return this->value;
+    }
+    if (left != NULL) {
+        try {
+            return left->getValue(key);
+        } catch (exception & e) {
+        }
+    }
+    if (right != NULL) {
+        try {
+            return right->getValue(key);
+        } catch (exception & e) {
+        }
+    }
+    throw exception();
+}
+*/
+
+BSTNode::BSTNode(string key, string value) {
     left = right = NULL;
     this->key = key;
     this->value = value;
 }
 
 
-void BST::insert(std::string key, std::string value) {
+void BST::insert(string key, string value) {
     if (root == NULL) {
         root = new BSTNode(key, value);
     } else {
@@ -56,7 +94,7 @@ void BST::insert(std::string key, std::string value) {
 }
 
 
-std::string BST::getValue(std::string key) const {
+string BST::getValue(string key) const {
     if (root != NULL) {
         return root->getValue(key);
     }

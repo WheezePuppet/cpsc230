@@ -20,7 +20,7 @@ int HT::openAddr(string key) const {
     long factor = 1;
     for (int i=0; i<3; i++) {
         sum += key[i] * factor;
-        factor *= 3;
+        factor *= 3 + i;
     }
     return (int) (sum % HT_SIZE);
 }

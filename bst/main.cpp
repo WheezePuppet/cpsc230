@@ -33,9 +33,9 @@ int main(int argc, char *argv[]) {
         sprintf(keyS,"%d",key);
 
         try {
-            testBST.insert(keyS, keyS);
 //            testLL.insert(keyS, keyS);
-//            testHT.insert(keyS, keyS);
+//            testBST.insert(keyS, keyS);
+            testHT.insert(keyS, keyS);
         } catch (char const * str) {
             cout << "caught: " << str << endl;
             return 1;
@@ -55,11 +55,13 @@ int main(int argc, char *argv[]) {
         int r = rand();
         char searchS[100]; 
         sprintf(searchS,"%d",r);
-        if (i%10 == 0) {
+        if (i%100 == 0) {
             cout << i << " Searching for " << r << "..." << endl;
         }
         try {
-            value = testBST.getValue(searchS);
+//            value = testLL.getValue(searchS);
+//            value = testBST.getValue(searchS);
+            value = testHT.getValue(searchS);
             // Try using testLL here instead and see the diff!
             // value = testLL.getValue(searchS);
             cout << "Found " << value << "!" << endl;    
