@@ -65,17 +65,17 @@ string JumblePuzzle::getUnscrambledWord(int i) const {
     return clues[i]->unscramble();
 }
 
-std::string JumblePuzzle::getContributingLettersFrom(int i) const {
+string JumblePuzzle::getContributingLettersFrom(int i) const {
     return clues[i]->getContributingLetters();
 }
 
-std::string JumblePuzzle::getFinalSolution() const {
+string JumblePuzzle::getFinalSolution() const {
     string finalWord;
     for (int i=0; i<CLUES_PER_PUZZLE; i++) {
         finalWord += clues[i]->getContributingLetters();
         cout << toupper(clues[i]->unscramble()) << endl;
     }
-    finalWord = unscramble_word(finalWord);
+    finalWord = toupper(unscramble_word(finalWord));
     string solvedAnswer = finalAnswer;
     solvedAnswer.replace(finalAnswer.find('_'), finalWord.length(), finalWord);
     return finalQuestion + "\n" + solvedAnswer;
