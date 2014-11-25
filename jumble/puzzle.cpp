@@ -31,11 +31,13 @@ string unscramble_word(const string & word) {
     string unscrambledWord = word;
     unscrambledWord = tolower(unscrambledWord);
     int numPerms = fact(unscrambledWord.length());
-    string perms[numPerms];
+    string *perms = new string[numPerms];
     generatePermutations(unscrambledWord,perms);
     for (int i=0; i<numPerms; i++) {
         if (dict.contains(perms[i])) {
-            return perms[i];
+            string answer = perms[i];
+            delete [] perms;
+            return answer;
         }
     }
     throw "" + unscrambledWord + " not unscrambleable!";
