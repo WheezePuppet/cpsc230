@@ -1,6 +1,6 @@
 
 run: jumble
-	./jumble neutron.jumble
+	./jumble kids_single.jumble
 
 jumble: jumble.o PermutationGenerator.o Dictionary.o puzzle.o
 	g++ -o jumble jumble.o PermutationGenerator.o Dictionary.o puzzle.o
