@@ -19,6 +19,14 @@ string tolower(const string & str) {
     return copy;
 }
 
+string toupper(const string & str) {
+    string copy = str;
+    for (int i=0; i<copy.length(); i++) {
+        copy[i] = toupper(copy[i]);
+    }
+    return copy;
+}
+
 string unscramble_word(const string & word) {
     string unscrambledWord = word;
     unscrambledWord = tolower(unscrambledWord);
@@ -65,6 +73,7 @@ std::string JumblePuzzle::getFinalSolution() const {
     string finalWord;
     for (int i=0; i<CLUES_PER_PUZZLE; i++) {
         finalWord += clues[i]->getContributingLetters();
+        cout << toupper(clues[i]->unscramble()) << endl;
     }
     finalWord = unscramble_word(finalWord);
     string solvedAnswer = finalAnswer;
