@@ -21,7 +21,7 @@ class Word {
 class Dictionary {
 
     const static char * DICT_FILE;
-    const static int NUM_WORDS = 99171;
+    const static int NUM_WORDS = 98569;
     public:
         void insert(string word);
         bool contains(string word) const;
@@ -30,4 +30,5 @@ class Dictionary {
     private:
         Word *root;
 };
+
 #endif
