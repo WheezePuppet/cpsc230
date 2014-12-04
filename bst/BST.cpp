@@ -4,16 +4,18 @@
 
 using namespace std;
 
-void BSTNode::insert(string key, string value) {
+
+template <class KeyType, class ValueType>
+void BSTNode<KeyType,ValueType>::insert(KeyType key, ValueType value) {
     if (key < this->key) {
         if (left == NULL) {
-            left = new BSTNode(key, value);
+            left = new BSTNode<KeyType,ValueType>(key, value);
         } else {
             left->insert(key, value);
         }
     } else {
         if (right == NULL) {
-            right = new BSTNode(key, value);
+            right = new BSTNode<KeyType,ValueType>(key, value);
         } else {
             right->insert(key, value);
         }
@@ -21,7 +23,8 @@ void BSTNode::insert(string key, string value) {
 }
 
 /* Correct version! */
-string BSTNode::getValue(string key) const {
+template <class KeyType, class ValueType>
+ValueType BSTNode<KeyType,ValueType>::getValue(KeyType key) const {
     if (key == this->key) {
         return this->value;
     }
@@ -78,30 +81,34 @@ string BSTNode::getValue(string key) const {
 }
 */
 
-BSTNode::BSTNode(string key, string value) {
+template <class KeyType, class ValueType>
+BSTNode<KeyType,ValueType>::BSTNode(KeyType key, ValueType value) {
     left = right = NULL;
     this->key = key;
     this->value = value;
 }
 
 
-void BST::insert(string key, string value) {
+template <class KeyType, class ValueType>
+void BST<KeyType,ValueType>::insert(KeyType key, ValueType value) {
     if (root == NULL) {
-        root = new BSTNode(key, value);
+        root = new BSTNode<KeyType,ValueType>(key, value);
     } else {
         root->insert(key,value);
     }
 }
 
 
-string BST::getValue(string key) const {
+template <class KeyType, class ValueType>
+ValueType BST<KeyType,ValueType>::getValue(KeyType key) const {
     if (root != NULL) {
         return root->getValue(key);
     }
     throw exception();
 }
 
-BST::BST() {
+template <class KeyType, class ValueType>
+BST<KeyType,ValueType>::BST() {
     root = NULL;
 }
 

@@ -1,5 +1,5 @@
 
-#include"BST.h"
+#include"BST.cpp"
 #include"LL.h"
 #include"HT.h"
 #include<iostream>
@@ -16,7 +16,7 @@ double numMicros(struct timeval t1, struct timeval t2) {
 
 int main(int argc, char *argv[]) {
 
-    BST testBST;
+    BST<string, string> testBST;
     LL testLL;
     HT testHT;
 
