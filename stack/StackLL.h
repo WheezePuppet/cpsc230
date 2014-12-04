@@ -1,24 +1,23 @@
 
 #include<iostream>
 
+template <class Pikachu>
 class StackNode {
 
-    friend class Stack;
-
     public:
-        StackNode(int data);
-    private:
-        int data;
-        StackNode *next;
+        StackNode(Pikachu data);
+        Pikachu data;
+        StackNode<Pikachu> *next;
 };
 
+template <class Pikachu>
 class Stack {
     public:
         Stack();
-        int top() const;
-        int pop();
-        void push(int n);
+        Pikachu top() const;
+        Pikachu pop();
+        void push(Pikachu n);
         bool isEmpty() const;
     private:
-        StackNode *topNode;
+        StackNode<Pikachu> *topNode;
 };

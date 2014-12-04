@@ -1,34 +1,40 @@
 
 #include"StackLL.h"
 
-Stack::Stack() {
+template <class Pikachu>
+Stack<Pikachu>::Stack() {
     topNode = NULL;
 }
 
-int Stack::top() const {
+template <class Pikachu>
+Pikachu Stack<Pikachu>::top() const {
     return topNode->data;
 }
 
-int Stack::pop() {
-    StackNode *tmp = topNode;
-    int data = tmp->data;
+template <class Pikachu>
+Pikachu Stack<Pikachu>::pop() {
+    StackNode<Pikachu> *tmp = topNode;
+    Pikachu data = tmp->data;
     topNode = topNode->next;
     tmp->next = NULL;
     delete tmp;
     return data;
 }
 
-void Stack::push(int n) {
-    StackNode *tmp = topNode;
-    topNode = new StackNode(n);
+template <class Pikachu>
+void Stack<Pikachu>::push(Pikachu n) {
+    StackNode<Pikachu> *tmp = topNode;
+    topNode = new StackNode<Pikachu>(n);
     topNode->next = tmp;
 }
 
-bool Stack::isEmpty() const {
+template <class Pikachu>
+bool Stack<Pikachu>::isEmpty() const {
     return topNode == NULL;
 }
 
-StackNode::StackNode(int data) {
+template <class Pikachu>
+StackNode<Pikachu>::StackNode(Pikachu data) {
     this->data = data;
     next = NULL;
 }
